@@ -69,10 +69,13 @@ namespace AbstractGeometry
             
         public override void Info(PaintEventArgs e)
         {
+            if (Convert.ToString(this.GetType()) == "AbstractGeometry.Triangle") 
+            {            
             Console.WriteLine(this.GetType() + ":");
             Console.WriteLine($"Сторона 1: {Size1}");
             Console.WriteLine($"Сторона 2: {Size2}");
-            Console.WriteLine($"Сторона 3: {Size3}");           
+            Console.WriteLine($"Сторона 3: {Size3}");
+            }
             base.Info(e);
         }
     }
