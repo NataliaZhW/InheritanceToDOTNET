@@ -8,6 +8,10 @@ namespace Academy
 {
     internal class Student : Human
     {
+        static readonly int SPECIALITY_WIDTH = 20;
+        static readonly int GROUP_WIDTH = 8;
+        static readonly int RATING_WIDTH = 5;
+        static readonly int ATTENDANCE_WIDTH = 5;
         public string Speciality { get; set; }
         public string Group { get; set; }
         public double Rating { get; set; }
@@ -22,7 +26,7 @@ namespace Academy
             Group = group;
             Rating = rating;
             Attendance = attendance;
-            Console.WriteLine("SConstructor:\t" + GetHashCode());
+            //Console.WriteLine("SConstructor:\t" + GetHashCode());
         }
         public Student(Human human, string speciality, string group, double rating, double attendance) : base(human)
         {
@@ -30,7 +34,7 @@ namespace Academy
             Group = group;
             Rating = rating;
             Attendance = attendance;
-            Console.WriteLine("SConstructor:\t" + GetHashCode());
+            //Console.WriteLine("SConstructor:\t" + GetHashCode());
         }
         public Student(Student other) : base(other)
         {
@@ -38,7 +42,7 @@ namespace Academy
             this.Group = other.Group;
             this.Rating = other.Rating;
             this.Attendance = other.Attendance;
-            Console.WriteLine("SCopyConstructor:" + GetHashCode());
+            //Console.WriteLine("SCopyConstructor:" + GetHashCode());
         }
         ~Student()
         {
@@ -46,8 +50,21 @@ namespace Academy
         }                
         public override string ToString()
         {
-            return base.ToString() + $", {Speciality}, {Group}, {Rating}, {Attendance}";
-        }        
+            return base.ToString() + $" {Speciality.PadRight(SPECIALITY_WIDTH)} {Group.PadRight(GROUP_WIDTH)} {Rating.ToString().PadLeft(RATING_WIDTH)} {Attendance.ToString().PadLeft(ATTENDANCE_WIDTH)}";
+        }
+        public override string ToFileString()
+        {
+            return base.ToFileString() + $",{Speciality},{Group},{Rating},{Attendance}";
+        }
+        public override Human Init(string[] values)
+        {
+            base.Init(values);
+            Speciality = values[4];
+            Group = values[5];
+            Rating = Convert.ToDouble(values[6]);
+            Attendance = Convert.ToDouble(values[7]);
+            return this;
+        }
     }
 
 }
