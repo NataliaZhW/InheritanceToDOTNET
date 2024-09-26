@@ -18,7 +18,7 @@ namespace AbstractGeometry
         public override double GetPerimeter() => Size1 *3;
         public override void Info(PaintEventArgs e)
         {
-            Console.WriteLine(this.GetType() + ":");
+            Console.WriteLine(base.ToString().Split('.').Last() + ":");
             Console.WriteLine($"Стороны (одинаковые) : {Size1}");
             base.Info(e);
         }

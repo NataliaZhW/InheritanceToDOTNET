@@ -41,7 +41,7 @@ namespace AbstractGeometry
             {
                 //new Rectangle(80, 50, 400, 60, 2, Color.Aqua),
                 //new Square(75, 500, 50, 3, Color.Green),
-                //new Circle(800, 700, 50, 1, Color.Yellow),
+                //new Circle(80, 700, 50, 1, Color.Yellow),
                 new EquilateralTriangle(80, 600, 50, 2, Color.Yellow),
                 new IsoscelesTriangle(80, 50, 400, 50, 5, Color.RoyalBlue),
                 new RightTriangle(90, 60, 400, 100, 4, Color.Purple),

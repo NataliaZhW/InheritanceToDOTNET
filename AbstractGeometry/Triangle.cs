@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AbstractGeometry
 {
-    internal class Triangle : Shape
+    internal class Triangle : Shape, IHaveHeight
     {
         double size1;
         double size2;
@@ -43,18 +43,18 @@ namespace AbstractGeometry
         public Triangle(double size1, double size2, double size3, int start_x, int start_y, int line_width, Color color)
             : base(start_x, start_y, line_width, color)
         {
-            Size1 = size1;            
-            Size2 = size2;            
-            Size3 = size3;            
+            Size1 = size1;
+            Size2 = size2;
+            Size3 = size3;
         }
-        public override double GetArea() 
+        public override double GetArea()
         {
             double s = GetPerimeter() / 2;
             return Math.Sqrt(s * (s - Size1) * (s - Size2) * (s - Size3));
         }
         public override double GetPerimeter() => Size1 + Size2 + Size3;
-        public double GetHeight() => 2* GetArea()/Size1;
-        
+        public double GetHeight() => 2 * GetArea() / Size1;
+
         public override void Draw(PaintEventArgs e)
         {
             //Console.WriteLine("Здесь должен быть рисунок прямоугольника");
@@ -62,21 +62,37 @@ namespace AbstractGeometry
             PointF[] apt = new PointF[3] {
                 new PointF((float)StartX, (float)StartY),
                 new PointF((float)StartX+ (float)Size1, (float)StartY),
-                new PointF((float)StartX+ (float)((Size2*Size2+Size1*Size1-Size3*Size3)/(2*Size1)), 
+                new PointF((float)StartX+ (float)((Size2*Size2+Size1*Size1-Size3*Size3)/(2*Size1)),
                                                            (float)StartY + (float)GetHeight())};  //
-            e.Graphics.DrawPolygon (pen, apt);
+            e.Graphics.DrawPolygon(pen, apt);
         }
-            
+        
+        public virtual void DrawHeight(PaintEventArgs e)
+        {
+            Pen pen = new Pen(Color.Green, 2);
+            e.Graphics.DrawLine
+                (
+                pen,
+                (float)StartX + (float)((Size2 * Size2 + Size1 * Size1 - Size3 * Size3) / (2 * Size1)),
+                StartY,
+                (float)StartX + (float)((Size2 * Size2 + Size1 * Size1 - Size3 * Size3) / (2 * Size1)),
+                (float)StartY + (float)GetHeight()
+                );
+        }
         public override void Info(PaintEventArgs e)
         {
-            if (Convert.ToString(this.GetType()) == "AbstractGeometry.Triangle") 
-            {            
-            Console.WriteLine(this.GetType() + ":");
-            Console.WriteLine($"Сторона 1: {Size1}");
-            Console.WriteLine($"Сторона 2: {Size2}");
-            Console.WriteLine($"Сторона 3: {Size3}");
+            if (Convert.ToString(this.GetType()) == "AbstractGeometry.Triangle")
+            {
+                Console.WriteLine(base.ToString().Split('.').Last() + ":");
+                Console.WriteLine($"Сторона 1: {Size1}");
+                Console.WriteLine($"Сторона 2: {Size2}");
+                Console.WriteLine($"Сторона 3: {Size3}");
             }
+            Console.WriteLine($"Высота: {GetHeight()}");
             base.Info(e);
+            DrawHeight(e);
+            Console.WriteLine();
+
         }
     }
 }

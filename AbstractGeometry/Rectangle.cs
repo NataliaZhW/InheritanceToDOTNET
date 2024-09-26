@@ -41,7 +41,6 @@ namespace AbstractGeometry
         public override double GetPerimeter() => (Width + Height) * 2;
         public override void Draw(PaintEventArgs e)
         {
-            //Console.WriteLine("Здесь должен быть рисунок прямоугольника");
             Pen pen = new Pen(Color, LineWidth);
             e.Graphics.DrawRectangle(pen, StartX, StartY, (float)Width, (float)Height);
         }
@@ -52,12 +51,13 @@ namespace AbstractGeometry
         }
         public override void Info(PaintEventArgs e)
         {
-            Console.WriteLine(this.GetType() + ":");
+            Console.WriteLine(base.ToString().Split('.').Last() + ":");
             Console.WriteLine($"Ширина: {Width}");
             Console.WriteLine($"Высота: {Height}");
             Console.WriteLine($"Диагональ: {GetDiagonal()}");
             DrawDiagonal(e);
             base.Info(e);
+            Console.WriteLine();
         }
     }
 }

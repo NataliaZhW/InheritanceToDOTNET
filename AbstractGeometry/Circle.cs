@@ -36,10 +36,11 @@ namespace AbstractGeometry
         }
         public override void Info(PaintEventArgs e)
         {
-            Console.WriteLine(this.GetType());
+            Console.WriteLine(base.ToString().Split('.').Last() + ":");
             Console.WriteLine($"Радиус: {Radius}");
             Console.WriteLine($"Диаметр: {GetDiameter()}");
             base.Info(e);
+            Console.WriteLine();
         }
     }
 }
